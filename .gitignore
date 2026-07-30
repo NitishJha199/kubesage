@@ -1,0 +1,49 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.swp
+*.swo
+*~
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+vendor/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Build output
+dist/
+build/
+*.egg-info/
+target/
+
+# Logs and temp
+*.log
+tmp/
+temp/
+
+# Test and coverage
+coverage/
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Kubernetes
+kubeconfig.local
+*.kubeconfig
+
+# Secrets
+*.pem
+*.key
+credentials.json
+secrets/
