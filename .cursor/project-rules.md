@@ -134,3 +134,29 @@ Every finding must reference the evidence that produced it. Findings without evi
 - No new dependencies without justification in the PR description
 - No secrets, `.env` values, or kubeconfig files in commits
 - No application code changes when the task is documentation-only
+
+# Backend Development Rules
+
+## General
+- Use Python 3.11+
+- Use type hints everywhere.
+- Use Pydantic models for all data exchanged between modules.
+- Never return raw Kubernetes client objects outside the collector layer.
+- Keep modules under ~300 lines where practical.
+
+## Collector Layer
+- Only the collector talks to Kubernetes.
+- Normalize Kubernetes objects into internal models.
+- Do not implement diagnosis logic here.
+
+## Diagnosis Layer
+- Never call the Kubernetes API directly.
+- Consume only normalized evidence.
+
+## AI Layer
+- AI explains diagnoses.
+- AI does not decide diagnoses.
+
+## Testing
+- Every collector should be testable independently.
+- Prefer dependency injection for Kubernetes clients.

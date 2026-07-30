@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: broken-image
+  namespace: demo
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: broken-image
+
+  template:
+    metadata:
+      labels:
+        app: broken-image
+
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:this-tag-does-not-exist
