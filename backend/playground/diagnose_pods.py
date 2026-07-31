@@ -7,7 +7,7 @@ from app.diagnosis.pod import PodDiagnoser
 
 def main() -> None:
     """
-    Entry point for KubeSage.
+    Playground script for testing collectors and the diagnosis engine.
     """
 
     client = KubernetesClient()
@@ -21,7 +21,6 @@ def main() -> None:
     events = event_collector.collect()
 
     diagnoser = PodDiagnoser(pods, events)
-
     results = diagnoser.diagnose()
 
     print("=" * 60)
