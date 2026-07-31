@@ -43,7 +43,18 @@ class PodDiagnoser:
 
         for container in pod.containers:
 
-            knowledge = get_knowledge(container.reason)
+            # Normalize the Kubernetes reason
+            reason = container.reason
+
+            # Fallback for CrashLoopBackOff
+            if (
+                reason is None
+                and container.state == "Waiting"
+                and container.restart_count > 0
+            ):
+                reason = "CrashLoopBackOff"
+
+            knowledge = get_knowledge(reason)
 
             if knowledge is None:
                 continue
@@ -58,7 +69,7 @@ class PodDiagnoser:
                 evidence=[
                     f"Pod phase: {pod.phase}",
                     f"Container state: {container.state}",
-                    f"Reason: {container.reason}",
+                    f"Reason: {reason}",
                     f"Restart count: {container.restart_count}",
                 ],
                 recommendation=knowledge.recommendation,
