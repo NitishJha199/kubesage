@@ -2,6 +2,7 @@ from app.knowledge.model import Knowledge
 
 
 IMAGE_PULL_BACKOFF = Knowledge(
+    reason="ImagePullBackOff",
     issue="ImagePullBackOff",
     severity="CRITICAL",
     confidence=0.95,

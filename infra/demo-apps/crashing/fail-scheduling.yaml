@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: failed-scheduling
+  namespace: demo
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: failed-scheduling
+
+  template:
+    metadata:
+      labels:
+        app: failed-scheduling
+
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest
+
+          resources:
+            requests:
+              memory: "100Gi"
+              cpu: "32"
+
+            limits:
+              memory: "100Gi"
+              cpu: "32"

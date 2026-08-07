@@ -25,3 +25,7 @@ class KubernetesClient:
     def list_events(self):
         """Return all events across all namespaces."""
         return self.core.list_event_for_all_namespaces()
+
+    def list_persistent_volumes(self):
+        """Return all PersistentVolumes."""
+        return self.core.list_persistent_volume()

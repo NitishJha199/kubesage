@@ -1,27 +1,21 @@
 from app.collector.client import KubernetesClient
-from app.collector.events import EventCollector
 from app.collector.nodes import NodeCollector
-from app.collector.pods import PodCollector
-from app.diagnosis.pod import PodDiagnoser
+from app.diagnosis.service import DiagnosisService
 
 
 def main() -> None:
     """
-    Playground script for testing collectors and the diagnosis engine.
+    Playground script for testing the diagnosis service.
     """
 
     client = KubernetesClient()
 
-    node_collector = NodeCollector(client)
-    pod_collector = PodCollector(client)
-    event_collector = EventCollector(client)
+    # Optional: still print nodes for visibility during development.
+    nodes = NodeCollector(client).collect()
 
-    nodes = node_collector.collect()
-    pods = pod_collector.collect()
-    events = event_collector.collect()
-
-    diagnoser = PodDiagnoser(pods, events)
-    results = diagnoser.diagnose()
+    # All diagnosis orchestration is delegated to the service.
+    service = DiagnosisService(client)
+    results = service.diagnose()
 
     print("=" * 60)
     print("NODES")
